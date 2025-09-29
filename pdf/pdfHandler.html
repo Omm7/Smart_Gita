@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Viewer - LearnHub AI</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="pdfHandler.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header class="app-header">
+        <div class="header-content">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>LearnHub AI</span>
+            </a>
+            
+            <div class="pdf-controls">
+                <button class="btn btn-outline-premium" onclick="window.history.back()">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <div class="pdf-info">
+                    <h3 id="pdfTitle">Document Viewer</h3>
+                </div>
+            </div>
+
+            <div class="user-actions">
+                <div class="pdf-tools">
+                    <button class="tool-btn" id="zoomOut" title="Zoom Out">
+                        <i class="fas fa-search-minus"></i>
+                    </button>
+                    <span class="zoom-level" id="zoomLevel">100%</span>
+                    <button class="tool-btn" id="zoomIn" title="Zoom In">
+                        <i class="fas fa-search-plus"></i>
+                    </button>
+                    <button class="tool-btn" id="downloadPdf" title="Download PDF">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="tool-btn" id="printPdf" title="Print PDF">
+                        <i class="fas fa-print"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    
+    <main class="pdf-viewer-container">
+        <div class="pdf-sidebar" id="pdfSidebar">
+            <div class="sidebar-header">
+                <h4>Thumbnails</h4>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            <div class="thumbnails-container" id="thumbnailsContainer">
+                
+            </div>
+        </div>
+        
+        <div class="pdf-main">
+            <div class="pdf-viewer" id="pdfViewer">
+                <div class="loading-spinner" id="loadingSpinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading PDF document...</p>
+                </div>
+                <iframe id="pdfFrame" style="display: none;"></iframe>
+            </div>
+            
+            <div class="pdf-controls-bottom">
+                <button class="btn btn-outline-premium" id="prevPage">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                
+                <div class="page-info">
+                    <span id="currentPage">1</span> of <span id="totalPages">-</span>
+                </div>
+                
+                <button class="btn btn-outline-premium" id="nextPage">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    
+    <div id="notificationContainer"></div>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script>
+        
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    </script>
+    <script src="pdfHandler.js"></script>
+</body>
+</html>

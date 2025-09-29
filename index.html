@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnHub AI | GITA Autonomous College</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="ai-chatbot.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <section class="landing-page active" id="landingPage">
+        <div class="landing-overlay">
+            <div class="landing-header">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>LearnHub AI</span>
+                </div>
+                <button class="btn-login" id="landingLoginBtn">Sign In</button>
+            </div>
+            
+            <div class="landing-content">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-crown"></i>
+                        <span>Premium Education Platform</span>
+                    </div>
+                    <h1 class="hero-title">
+                        <span class="title-line">Unlimited Learning,</span>
+                        <span class="title-line">Infinite Possibilities</span>
+                    </h1>
+                    <p class="hero-description">
+                        The ultimate educational platform for GITA Autonomous College. 
+                        Stream your courses, access resources, and excel in your academic journey.
+                    </p>
+                    <div class="hero-actions">
+                        <button class="btn btn-premium" id="exploreBtn">
+                            EXPLORE WEBPAGE <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="scrolling-banner">
+                <div class="banner-content">
+                    <div class="banner-item">
+                        <i class="fas fa-gem"></i>
+                        <span>Premium Content</span>
+                    </div>
+                    <div class="banner-item">
+                        <i class="fas fa-rocket"></i>
+                        <span>AI-Powered Learning</span>
+                    </div>
+                    <div class="banner-item">
+                        <i class="fas fa-infinity"></i>
+                        <span>Unlimited Access</span>
+                    </div>
+                    <div class="banner-item">
+                        <i class="fas fa-award"></i>
+                        <span>Certified Courses</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="floating-elements">
+            <div class="floating-element element-1"></div>
+            <div class="floating-element element-2"></div>
+            <div class="floating-element element-3"></div>
+            <div class="floating-element element-4"></div>
+        </div>
+    </section>
+
+    
+    <section class="main-app" id="mainApp">
+        
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>LearnHub AI</span>
+                </div>
+                
+                <nav class="nav-menu">
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-section="courses">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Courses</span>
+                        </a></li>
+                        <li><a href="dashboard/dashboard.html" class="nav-link">
+                            <i class="fas fa-bullhorn"></i>
+                            <span>Notice Board</span>
+                        </a></li>
+                        <li><a href="dashboard/dashboard.html" class="nav-link">
+                            <i class="fas fa-book-open"></i>
+                            <span>Academic Info</span>
+                        </a></li>
+                        <li><a href="dashboard/dashboard.html" class="nav-link">
+                            <i class="fas fa-envelope"></i>
+                            <span>Contact</span>
+                        </a></li>
+                    </ul>
+                </nav>
+
+                <div class="user-actions">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search..." id="globalSearch">
+                    </div>
+                    <div class="user-menu">
+                        <button class="user-menu-btn" id="userMenuBtn">
+                            <div class="user-avatar">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <span id="userWelcome">Student</span>
+                            <i class="fas fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="userDropdown">
+                            <a href="auth/login.html"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+                            <a href="auth/signup.html"><i class="fas fa-user-plus"></i> Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </header>
+
+        
+        <main class="main-content">
+            
+            <section class="hero-section" id="dashboardHero">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h1>LearnHub AI - GITA Autonomous College</h1>
+                    <p>Your premier destination for academic excellence. Access course materials, watch tutorials, and stay updated with college notices.</p>
+                    <button class="btn btn-premium" id="exploreCoursesBtn">
+                        Explore Courses <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+            
+            
+            <section class="content-section active" id="coursesSection">
+                <div class="netflix-courses">
+                    <div class="courses-container" id="coursesContainer">
+                        
+                    </div>
+
+                    
+                    <div class="video-player-section" id="videoPlayerSection" style="display: none;">
+                        <div class="section-header">
+                            <h2 class="section-title" id="currentPlaylistTitle">Course Playlist</h2>
+                            <button class="btn btn-outline-premium" onclick="resetToCoursesView()">
+                                <i class="fas fa-arrow-left"></i> Back to Courses
+                            </button>
+                        </div>
+                        
+                        <div class="video-container">
+                            <div class="video-player">
+                                <iframe id="youtubePlayer" src="" frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen></iframe>
+                            </div>
+                            
+                            <div class="playlist">
+                                <div class="playlist-header">
+                                    <h3 class="playlist-title">Playlist</h3>
+                                </div>
+                                <ul class="playlist-items" id="playlistItems">
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </section>
+
+    
+    <div id="notificationContainer"></div>
+
+    
+    
+    
+    <div class="ai-chat-widget" id="aiChatWidget">
+        
+        <div class="chat-header">
+            <div class="chat-brand">
+                <div class="ios-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="chat-info">
+                    <h3>Study Assistant</h3>
+                    <div class="chat-status">
+                        <div class="status-dot"></div>
+                        <span>Online</span>
+                    </div>
+                </div>
+            </div>
+            <div class="ios-controls">
+                <button class="ios-button" id="menuToggle" title="Menu">
+                    <i class="fas fa-ellipsis"></i>
+                </button>
+                <button class="ios-button" id="chatClose" title="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message ai-message">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-bubble">
+                        <strong>Welcome to your Ultra-Premium Study Assistant! 🎓</strong><br><br>
+                        I'm here to provide you with world-class academic support with an elegant iOS-inspired experience.<br><br>
+                        <strong>How I can help:</strong><br>
+                        • Academic explanations & concept clarification<br>
+                        • Homework guidance & study strategies<br>
+                        • Exam preparation & project assistance<br>
+                        • Technical concept breakdowns<br><br>
+                        Just ask me anything about your studies! 📚
+                    </div>
+                    <div class="message-time">Just now</div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="chat-input-container">
+            <div class="suggestion-chips">
+                <button class="suggestion-chip" data-prompt="Explain machine learning concepts">ML Concepts</button>
+                <button class="suggestion-chip" data-prompt="Help with calculus homework">Calculus Help</button>
+                <button class="suggestion-chip" data-prompt="Study techniques for exams">Exam Prep</button>
+            </div>
+            <div class="input-wrapper">
+                <textarea class="chat-input" id="chatInput" placeholder="Message Study Assistant..." rows="1"></textarea>
+                <div class="input-actions">
+                    <button class="attach-button" id="attachButton" title="Attach">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button class="voice-button" id="voiceButton" title="Voice Input">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button class="send-button" id="sendButton">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="action-menu" id="actionMenu">
+        <button class="menu-item" onclick="premiumChatbot.searchChat()">
+            <i class="fas fa-search"></i>
+            <span>Search Chat</span>
+        </button>
+        <button class="menu-item" onclick="premiumChatbot.exportChat()">
+            <i class="fas fa-download"></i>
+            <span>Export Chat</span>
+        </button>
+        <button class="menu-item">
+            <i class="fas fa-palette"></i>
+            <span>Change Theme</span>
+        </button>
+        <button class="menu-item">
+            <i class="fas fa-volume-up"></i>
+            <span>Text-to-Speech</span>
+        </button>
+    </div>
+
+    
+    <button class="ai-chat-toggle" id="aiChatToggle">
+        <i class="fas fa-robot"></i>
+        <div class="notification-badge" id="notificationBadge" style="display: none;">1</div>
+    </button>
+
+    
+
+    
+    <script src="script.js"></script>
+    <script src="ai-chatbot.js"></script>
+
+    <script>
+        
+        let currentPlaylist = null;
+        let currentVideoIndex = 0;
+
+        
+        const semesterCourses = {
+            "1st Semester": [
+                {
+                    id: 1,
+                    title: "Mathematics I",
+                    description: "Fundamental concepts of calculus and algebra",
+                    playlistId: "PL6gx4Cwl9DGBPw1sFodruZUPheWVKchlM",
+                    thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+                    syllabus: "https://example.com/math1-syllabus.pdf",
+                    icon: "fas fa-calculator",
+                    videos: 12,
+                    duration: "8h 30m"
+                },
+                {
+                    id: 2,
+                    title: "Physics I",
+                    description: "Mechanics, waves, and thermodynamics",
+                    playlistId: "PLyQSN7X0ro2314mKyUiOILaOC2hk6Pc3j",
+                    thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+                    syllabus: "https://example.com/physics1-syllabus.pdf",
+                    icon: "fas fa-atom",
+                    videos: 15,
+                    duration: "10h 15m"
+                }
+            ],
+            "2nd Semester": [
+                {
+                    id: 5,
+                    title: "Mathematics II",
+                    description: "Advanced calculus and differential equations",
+                    playlistId: "PL6gx4Cwl9DGBPw1sFodruZUPheWVKchlM",
+                    thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+                    syllabus: "https://example.com/math2-syllabus.pdf",
+                    icon: "fas fa-calculator",
+                    videos: 14,
+                    duration: "9h 45m"
+                }
+            ]
+        };
+
+        const samplePlaylists = {
+            "PL6gx4Cwl9DGBPw1sFodruZUPheWVKchlM": [
+                { title: "Introduction to Course", videoId: "dQw4w9WgXcQ", duration: "10:25" },
+                { title: "Basic Concepts", videoId: "dQw4w9WgXcQ", duration: "15:40" }
+            ]
+        };
+
+        
+        const landingPage = document.getElementById('landingPage');
+        const mainApp = document.getElementById('mainApp');
+        const appHeader = document.querySelector('.app-header');
+        const exploreBtn = document.getElementById('exploreBtn');
+        const landingLoginBtn = document.getElementById('landingLoginBtn');
+        const userMenuBtn = document.getElementById('userMenuBtn');
+        const userDropdown = document.getElementById('userDropdown');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.querySelector('.nav-menu');
+        const coursesContainer = document.getElementById('coursesContainer');
+        const videoPlayerSection = document.getElementById('videoPlayerSection');
+        const youtubePlayer = document.getElementById('youtubePlayer');
+        const playlistItems = document.getElementById('playlistItems');
+        const currentPlaylistTitle = document.getElementById('currentPlaylistTitle');
+        const exploreCoursesBtn = document.getElementById('exploreCoursesBtn');
+        const dashboardHero = document.getElementById('dashboardHero');
+        const globalSearch = document.getElementById('globalSearch');
+        const notificationContainer = document.getElementById('notificationContainer');
+
+        
+        function init() {
+            handlePageAccess();
+            loadEventListeners();
+            renderNetflixStyleCourses();
+            setupHeaderScroll();
+            updateUserMenu();
+            checkUrlAndShowCourses();
+        }
+
+        
+        function handlePageAccess() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (currentUser) {
+                showMainApp();
+                showCoursesHomepage();
+            } else {
+                showLandingPage();
+            }
+        }
+
+        
+        function loadEventListeners() {
+            
+            exploreBtn.addEventListener('click', () => {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                
+                if (!currentUser) {
+                    window.location.href = 'auth/login.html';
+                } else {
+                    showMainApp();
+                    showCoursesHomepage();
+                }
+            });
+            
+            landingLoginBtn.addEventListener('click', () => {
+                window.location.href = 'auth/login.html';
+            });
+
+            
+            userMenuBtn.addEventListener('click', toggleUserDropdown);
+            document.addEventListener('click', closeUserDropdown);
+
+            
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            
+            
+            if (exploreCoursesBtn) {
+                exploreCoursesBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showCoursesHomepage();
+                });
+            }
+            
+            
+            const navLinks = document.querySelectorAll('.nav-link[data-section]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', handleNavigation);
+            });
+            
+            
+            if (globalSearch) {
+                globalSearch.addEventListener('input', handleGlobalSearch);
+            }
+            
+            
+            setupProtectedNavigation();
+            
+            
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.logo') && !e.target.closest('.landing-header')) {
+                    e.preventDefault();
+                    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                    if (currentUser) {
+                        showCoursesHomepage();
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                }
+            });
+            
+            window.addEventListener('load', checkUrlAndShowCourses);
+        }
+
+        
+        function handleNavigation(e) {
+            e.preventDefault();
+            
+            if (!checkAuthentication()) return;
+            
+            const section = e.currentTarget.getAttribute('data-section');
+            
+            
+            if (section === 'courses') {
+                showCoursesHomepage();
+                return;
+            }
+            
+            
+            navLinks.forEach(link => link.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+            
+            contentSections.forEach(sec => sec.classList.remove('active'));
+            document.getElementById(`${section}Section`).classList.add('active');
+            
+            navMenu.classList.remove('active');
+        }
+
+        
+        function checkUrlAndShowCourses() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const isIndexPage = window.location.pathname.endsWith('index.html') || 
+                               window.location.pathname.endsWith('/') ||
+                               window.location.pathname.includes('index.html');
+            
+            if (currentUser && isIndexPage) {
+                showCoursesHomepage();
+            }
+        }
+
+        
+        function setupProtectedNavigation() {
+            const protectedLinks = document.querySelectorAll('a[href*="dashboard"], a[href*="profile"], a[href*="admin"]');
+            
+            protectedLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                    
+                    if (!currentUser) {
+                        e.preventDefault();
+                        showNotification('Please login to access this page', 'error');
+                        setTimeout(() => {
+                            window.location.href = 'auth/login.html';
+                        }, 1500);
+                        return;
+                    }
+                    
+                    if (this.href.includes('admin') && currentUser.role !== 'admin') {
+                        e.preventDefault();
+                        showNotification('Admin access required', 'error');
+                        return;
+                    }
+                });
+            });
+        }
+
+        
+        function setupHeaderScroll() {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    appHeader.classList.add('scrolled');
+                } else {
+                    appHeader.classList.remove('scrolled');
+                }
+            });
+        }
+
+        
+        function showMainApp() {
+            landingPage.classList.remove('active');
+            mainApp.classList.add('active');
+            updateUIForUser();
+        }
+
+        function showLandingPage() {
+            landingPage.classList.add('active');
+            mainApp.classList.remove('active');
+        }
+
+        
+        function showCoursesHomepage() {
+            console.log('showCoursesHomepage called');
+            
+            
+            if (dashboardHero) {
+                dashboardHero.style.display = 'none';
+            }
+            
+            
+            resetToCoursesView();
+            
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            
+            const coursesNavLinks = document.querySelectorAll('.nav-link[data-section="courses"]');
+            coursesNavLinks.forEach(link => link.classList.add('active'));
+            
+            
+            const contentSections = document.querySelectorAll('.content-section');
+            contentSections.forEach(sec => {
+                sec.classList.remove('active');
+                sec.style.display = 'none';
+                
+                if (sec.id === 'coursesSection') {
+                    sec.classList.add('active');
+                    sec.style.display = 'block';
+                }
+            });
+            
+            
+            if (coursesContainer) {
+                coursesContainer.style.display = 'block';
+            }
+            if (videoPlayerSection) {
+                videoPlayerSection.style.display = 'none';
+            }
+            
+            
+            renderNetflixStyleCourses();
+            
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            console.log('Courses homepage shown - Netflix style');
+        }
+
+        
+        function resetToCoursesView() {
+            console.log('resetToCoursesView called');
+            
+            if (coursesContainer) {
+                coursesContainer.style.display = 'block';
+            }
+            if (videoPlayerSection) {
+                videoPlayerSection.style.display = 'none';
+            }
+            
+            
+            if (youtubePlayer) {
+                youtubePlayer.src = '';
+            }
+            
+            
+            currentPlaylist = null;
+            currentVideoIndex = 0;
+            
+            
+            renderNetflixStyleCourses();
+        }
+
+        
+        function updateUIForUser() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const userWelcome = document.getElementById('userWelcome');
+            
+            if (currentUser && userWelcome) {
+                userWelcome.textContent = currentUser.name;
+                updateUserMenu();
+            }
+        }
+
+        
+        function toggleUserDropdown() {
+            userDropdown.classList.toggle('show');
+        }
+
+        function closeUserDropdown(e) {
+            if (!e.target.closest('.user-menu')) {
+                userDropdown.classList.remove('show');
+            }
+        }
+
+        function toggleMobileMenu() {
+            navMenu.classList.toggle('active');
+        }
+
+        
+        function handleGlobalSearch() {
+            const term = globalSearch.value.toLowerCase();
+            
+            if (term.length > 2) {
+                filterCourses(term);
+            } else {
+                renderNetflixStyleCourses();
+            }
+        }
+
+        function filterCourses(term) {
+            let filteredCourses = {};
+            
+            for (const [category, courses] of Object.entries(semesterCourses)) {
+                const filtered = courses.filter(course => 
+                    course.title.toLowerCase().includes(term) || 
+                    course.description.toLowerCase().includes(term)
+                );
+                
+                if (filtered.length > 0) {
+                    filteredCourses[category] = filtered;
+                }
+            }
+            
+            renderFilteredCourses(filteredCourses);
+        }
+
+        function renderFilteredCourses(filteredCourses) {
+            if (!coursesContainer) return;
+            
+            let html = '';
+            
+            for (const [category, courses] of Object.entries(filteredCourses)) {
+                html += `
+                    <div class="netflix-row">
+                        <div class="row-header">
+                            <h2 class="row-title">${category}</h2>
+                        </div>
+                        <div class="row-container">
+                            <div class="row-content">
+                                ${courses.map(course => `
+                                    <div class="netflix-item" data-course-id="${course.id}" data-playlist-id="${course.playlistId}">
+                                        <div class="item-image">
+                                            <img src="${course.thumbnail}" alt="${course.title}" onerror="this.src='https://via.placeholder.com/300x169/1a1a1a/ffffff?text=Course+Thumbnail'">
+                                            <div class="item-overlay">
+                                                <div class="play-button">
+                                                    <i class="fas fa-play"></i>
+                                                </div>
+                                                <div class="item-info">
+                                                    <h3>${course.title}</h3>
+                                                    <p>${course.description}</p>
+                                                    <div class="item-meta">
+                                                        <span><i class="fas fa-play-circle"></i> ${course.videos} videos</span>
+                                                        <span><i class="fas fa-clock"></i> ${course.duration}</span>
+                                                    </div>
+                                                    <div class="item-actions">
+                                                        <button class="btn-watch" onclick="event.stopPropagation(); openVideoPlayer('${course.playlistId}', '${course.title}')">
+                                                            <i class="fas fa-play"></i> Watch Now
+                                                        </button>
+                                                        <a href="${course.syllabus}" target="_blank" class="btn-syllabus" onclick="event.stopPropagation()">
+                                                            <i class="fas fa-file-pdf"></i> Syllabus
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-title">${course.title}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            if (html === '') {
+                html = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <h3>No courses found</h3>
+                        <p>Try different search terms</p>
+                    </div>
+                `;
+            }
+            
+            coursesContainer.innerHTML = html;
+        }
+
+        
+        function updateUserMenu() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (currentUser) {
+                userDropdown.innerHTML = `
+                    <a href="profile/profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+                    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                `;
+                
+                document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+            } else {
+                userDropdown.innerHTML = `
+                    <a href="auth/login.html"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+                    <a href="auth/signup.html"><i class="fas fa-user-plus"></i> Sign Up</a>
+                `;
+            }
+        }
+
+        function handleLogout(e) {
+            e.preventDefault();
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+
+        
+        function renderNetflixStyleCourses() {
+            if (!coursesContainer) return;
+            
+            let html = '';
+            
+            for (const [category, courses] of Object.entries(semesterCourses)) {
+                html += `
+                    <div class="netflix-row">
+                        <div class="row-header">
+                            <h2 class="row-title">${category}</h2>
+                        </div>
+                        <div class="row-container">
+                            <button class="row-arrow row-arrow-left" onclick="scrollRow(this, -1)">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <div class="row-content">
+                                ${courses.map(course => `
+                                    <div class="netflix-item" data-course-id="${course.id}" data-playlist-id="${course.playlistId}">
+                                        <div class="item-image">
+                                            <img src="${course.thumbnail}" alt="${course.title}" onerror="this.src='https://via.placeholder.com/300x169/1a1a1a/ffffff?text=Course+Thumbnail'">
+                                            <div class="item-overlay">
+                                                <div class="play-button">
+                                                    <i class="fas fa-play"></i>
+                                                </div>
+                                                <div class="item-info">
+                                                    <h3>${course.title}</h3>
+                                                    <p>${course.description}</p>
+                                                    <div class="item-meta">
+                                                        <span><i class="fas fa-play-circle"></i> ${course.videos} videos</span>
+                                                        <span><i class="fas fa-clock"></i> ${course.duration}</span>
+                                                    </div>
+                                                    <div class="item-actions">
+                                                        <button class="btn-watch" onclick="event.stopPropagation(); openVideoPlayer('${course.playlistId}', '${course.title}')">
+                                                            <i class="fas fa-play"></i> Watch Now
+                                                        </button>
+                                                        <a href="${course.syllabus}" target="_blank" class="btn-syllabus" onclick="event.stopPropagation()">
+                                                            <i class="fas fa-file-pdf"></i> Syllabus
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-title">${course.title}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <button class="row-arrow row-arrow-right" onclick="scrollRow(this, 1)">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            coursesContainer.innerHTML = html;
+            
+            
+            document.querySelectorAll('.netflix-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    
+                    if (e.target.closest('.btn-watch') || e.target.closest('.btn-syllabus')) {
+                        return;
+                    }
+                    
+                    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                    
+                    if (!currentUser) {
+                        window.location.href = 'auth/login.html';
+                        return;
+                    }
+                    
+                    const playlistId = this.getAttribute('data-playlist-id');
+                    const courseTitle = this.querySelector('.item-title').textContent;
+                    openVideoPlayer(playlistId, courseTitle);
+                });
+            });
+        }
+
+        
+        function scrollRow(arrow, direction) {
+            const rowContainer = arrow.closest('.row-container');
+            const rowContent = rowContainer.querySelector('.row-content');
+            const scrollAmount = 300;
+            
+            rowContent.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        
+        function openVideoPlayer(playlistId, courseTitle) {
+            if (coursesContainer) {
+                coursesContainer.style.display = 'none';
+            }
+            if (videoPlayerSection) {
+                videoPlayerSection.style.display = 'block';
+            }
+            
+            if (currentPlaylistTitle) {
+                currentPlaylistTitle.textContent = courseTitle;
+            }
+            
+            currentPlaylist = samplePlaylists[playlistId] || samplePlaylists["PL6gx4Cwl9DGBPw1sFodruZUPheWVKchlM"];
+            currentVideoIndex = 0;
+            
+            renderPlaylistItems();
+            loadVideo(currentPlaylist[0].videoId);
+        }
+
+        function renderPlaylistItems() {
+            if (!playlistItems) return;
+            
+            playlistItems.innerHTML = currentPlaylist.map((video, index) => `
+                <li class="playlist-item ${index === currentVideoIndex ? 'active' : ''}" data-video-index="${index}">
+                    <div class="video-title">${video.title}</div>
+                    <div class="video-duration">${video.duration}</div>
+                </li>
+            `).join('');
+            
+            document.querySelectorAll('.playlist-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-video-index'));
+                    playVideo(index);
+                });
+            });
+        }
+
+        function playVideo(index) {
+            currentVideoIndex = index;
+            loadVideo(currentPlaylist[index].videoId);
+            renderPlaylistItems();
+        }
+
+        function loadVideo(videoId) {
+            if (youtubePlayer) {
+                youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            }
+        }
+
+        
+        function checkAuthentication() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (!currentUser) {
+                window.location.href = 'auth/login.html';
+                return false;
+            }
+            
+            return true;
+        }
+
+        
+        function showNotification(message, type) {
+            if (!notificationContainer) return;
+            
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()">&times;</button>
+            `;
+            
+            notificationContainer.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        
+        window.navigateToCourses = showCoursesHomepage;
+        window.showCoursesHomepage = showCoursesHomepage;
+        window.resetToCoursesView = resetToCoursesView;
+        window.scrollRow = scrollRow;
+        window.openVideoPlayer = openVideoPlayer;
+
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            init();
+            
+            setTimeout(() => {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                const isOnMainPage = window.location.pathname.endsWith('index.html') || 
+                                    window.location.pathname.endsWith('/');
+                
+                if (currentUser && isOnMainPage) {
+                    showCoursesHomepage();
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>

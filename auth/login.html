@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - LearnHub AI</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-background">
+        <div class="bg-gradient"></div>
+        <div class="bg-pattern"></div>
+    </div>
+    
+    <div class="login-header">
+        <a href="../index.html" class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>LearnHub AI</span>
+        </a>
+        <a href="../index.html" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+    
+    <div class="login-container">
+        <div class="login-card">
+            <div class="card-glow"></div>
+            <div class="login-header-content">
+                <div class="welcome-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Secure Login</span>
+                </div>
+                <h2>Welcome Back</h2>
+                <p>Choose your role to continue to LearnHub</p>
+            </div>
+
+            <div class="role-selection">
+                <div class="role-tabs">
+                    <button class="role-tab active" data-role="user">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Student</span>
+                    </button>
+                    <button class="role-tab" data-role="admin">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Admin</span>
+                    </button>
+                </div>
+
+                
+                <div class="login-form active" id="userLoginForm">
+                    <form id="userForm">
+                        <div class="form-group">
+                            <input type="email" id="userEmail" placeholder=" " required>
+                            <label for="userEmail">Email or phone number</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="userPassword" placeholder=" " required>
+                            <label for="userPassword">Password</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                        <button type="submit" class="btn btn-premium btn-full">
+                            <span>Sign In</span>
+                            <div class="btn-shine"></div>
+                        </button>
+                        <div class="form-options">
+                            <label class="checkbox premium-checkbox">
+                                <input type="checkbox" id="rememberMe">
+                                <span class="checkmark"></span>
+                                Remember me
+                            </label>
+                            <a href="#" class="help-link" id="forgotPassword">Need help?</a>
+                        </div>
+                    </form>
+                    <div class="form-footer">
+                        <p>New to LearnHub? <a href="signup.html">Sign up now.</a></p>
+                    </div>
+                </div>
+
+                
+                <div class="login-form" id="forgotPasswordForm">
+                    <form id="resetPasswordForm">
+                        <div class="form-group">
+                            <input type="email" id="resetEmail" placeholder=" " required>
+                            <label for="resetEmail">Email</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                        <p class="reset-info">Enter your email address and we'll send you a link to reset your password.</p>
+                        <button type="submit" class="btn btn-premium btn-full">
+                            <span>Send Reset Link</span>
+                            <div class="btn-shine"></div>
+                        </button>
+                    </form>
+                    <div class="form-footer">
+                        <p>Remember your password? <a href="#" id="backToLogin">Back to sign in</a></p>
+                    </div>
+                </div>
+
+                
+                <div class="login-form" id="adminLoginForm">
+                    <form id="adminForm">
+                        <div class="form-group">
+                            <input type="text" id="adminEmail" placeholder=" " required>
+                            <label for="adminEmail">Admin ID</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="adminPassword" placeholder=" " required>
+                            <label for="adminPassword">Password</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                        <button type="submit" class="btn btn-premium btn-full">
+                            <span>Sign In as Admin</span>
+                            <div class="btn-shine"></div>
+                        </button>
+                    </form>
+                    <div class="admin-note">
+                        <p><i class="fas fa-shield-alt"></i> Admin access is restricted to authorized personnel only.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notificationContainer"></div>
+
+    <script src="login.js"></script>
+</body>
+</html>

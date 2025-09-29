@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - LearnHub AI</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header class="app-header">
+        <div class="header-content">
+            <a href="../index.html" class="logo" onclick="window.navigateToCourses ? window.navigateToCourses() : null">
+                <i class="fas fa-graduation-cap"></i>
+                <span>LearnHub AI</span>
+            </a>
+            
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="../index.html" class="nav-link" onclick="window.navigateToCourses ? window.navigateToCourses() : null">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Courses</span>
+                    </a></li>
+                    <li><a href="../dashboard/dashboard.html" class="nav-link">
+                        <i class="fas fa-bullhorn"></i>
+                        <span>Notice Board</span>
+                    </a></li>
+                    <li><a href="../dashboard/dashboard.html" class="nav-link">
+                        <i class="fas fa-book-open"></i>
+                        <span>Academic Info</span>
+                    </a></li>
+                    <li><a href="../dashboard/dashboard.html" class="nav-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contact</span>
+                    </a></li>
+                </ul>
+            </nav>
+
+            <div class="user-actions">
+                <div class="user-menu">
+                    <button class="user-menu-btn" id="userMenuBtn">
+                        <div class="user-avatar">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <span id="userWelcome">Student</span>
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-menu" id="userDropdown">
+                        <a href="#" class="active"><i class="fas fa-user-circle"></i> Profile</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                    </div>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    
+    <main class="main-content">
+        <div class="profile-container">
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="profileName">Student Name</h2>
+                        <p id="profileEmail">student@example.com</p>
+                        <span class="profile-role" id="profileRole">Student</span>
+                    </div>
+                </div>
+                
+                <form class="profile-form" id="profileForm">
+                    <div class="form-section">
+                        <h3 class="section-title">Personal Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="profileFirstName" placeholder=" " required>
+                                <label for="profileFirstName">First Name</label>
+                                <div class="input-highlight"></div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="profileLastName" placeholder=" " required>
+                                <label for="profileLastName">Last Name</label>
+                                <div class="input-highlight"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="profileEmailInput" placeholder=" " required>
+                            <label for="profileEmailInput">Email Address</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="profilePhone" placeholder=" ">
+                            <label for="profilePhone">Phone Number</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">Academic Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="profileRollNumber" placeholder=" " required>
+                                <label for="profileRollNumber">Roll Number</label>
+                                <div class="input-highlight"></div>
+                            </div>
+                            <div class="form-group">
+                                <select id="profileBranch" required>
+                                    <option value="">Select Branch</option>
+                                    <option value="cse">Computer Science & Engineering</option>
+                                    <option value="it">Information Technology</option>
+                                    <option value="ece">Electronics & Communication</option>
+                                    <option value="eee">Electrical & Electronics</option>
+                                    <option value="mech">Mechanical Engineering</option>
+                                    <option value="civil">Civil Engineering</option>
+                                </select>
+                                <label for="profileBranch">Branch</label>
+                                <div class="input-highlight"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select id="profileSemester" required>
+                                <option value="">Select Semester</option>
+                                <option value="1">1st Semester</option>
+                                <option value="2">2nd Semester</option>
+                                <option value="3">3rd Semester</option>
+                                <option value="4">4th Semester</option>
+                                <option value="5">5th Semester</option>
+                                <option value="6">6th Semester</option>
+                                <option value="7">7th Semester</option>
+                                <option value="8">8th Semester</option>
+                            </select>
+                            <label for="profileSemester">Semester</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">Change Password</h3>
+                        <div class="form-group">
+                            <input type="password" id="currentPassword" placeholder=" ">
+                            <label for="currentPassword">Current Password</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="newPassword" placeholder=" ">
+                            <label for="newPassword">New Password</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="confirmNewPassword" placeholder=" ">
+                            <label for="confirmNewPassword">Confirm New Password</label>
+                            <div class="input-highlight"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline-premium" id="cancelBtn">Cancel</button>
+                        <button type="submit" class="btn btn-premium">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    
+    <div id="notificationContainer"></div>
+
+    <script src="profile.js"></script>
+</body>
+</html>
