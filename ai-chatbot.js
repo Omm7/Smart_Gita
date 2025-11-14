@@ -1,6 +1,6 @@
 class PremiumChatbot {
     constructor() {
-        this.apiKey = 'AIzaSyD3nZncaJyM045MWglg3HwxvOTHypWqvro';
+        this.apiKey = 'AIzaSyCmiRnSf5spvb6rDMENqdRIAeXAM39Oeao';
         this.baseURL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
         this.isOpen = false;
         this.isProcessing = false;
