@@ -1,12 +1,17 @@
 class PremiumChatbot {
     constructor() {
+        // Gemini API Configuration
         this.apiKey = 'AIzaSyCmiRnSf5spvb6rDMENqdRIAeXAM39Oeao';
         this.baseURL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
+        
         this.isOpen = false;
         this.isProcessing = false;
         this.conversationHistory = [];
         this.maxHistory = 20;
         this.elements = {};
+        this.apiCallCount = 0;
+        this.lastApiCallTime = 0;
+        
         this.init();
     }
 
@@ -91,7 +96,7 @@ class PremiumChatbot {
 
         const normalized = message.toLowerCase().replace(/[^\w\s]/g, '');
         if (normalized === 'hi') {
-            this.addMessage("Hi dear studnet, I'm gita smart ai 🤖 how can i assit you today", 'ai');
+            this.addMessage("Hi dear student, I'm GITA smart AI 🤖 How can I assist you today?", 'ai');
             return;
         }
 
@@ -100,7 +105,29 @@ class PremiumChatbot {
             const response = await this.callGeminiAPI(message);
             this.addMessage(response, 'ai');
         } catch (err) {
-            this.addMessage('Sorry, could not get response. ' + err.message, 'ai');
+            // Show user-friendly error messages
+            let errorMessage = '';
+            
+            if (err.message.includes('overloaded')) {
+                errorMessage = '⏳ I\'m currently overloaded with requests. Please try again in a moment. Thank you for your patience!';
+            } else if (err.message.includes('API key') || err.message.includes('authentication') || err.message.includes('Authentication')) {
+                errorMessage = '🔑 I\'m having authentication issues with my AI service. Please try again later.';
+            } else if (err.message.includes('timeout') || err.message.includes('Timeout')) {
+                errorMessage = '⏰ The request took too long. Please try again with a shorter question.';
+            } else if (err.message.includes('network') || err.message.includes('Network') || err.message.includes('Failed to fetch')) {
+                errorMessage = '🌐 I\'m having trouble connecting to my service. Please check your internet and try again.';
+            } else if (err.message.includes('Empty') || err.message.includes('empty')) {
+                errorMessage = '😔 I couldn\'t generate a response. Please try rephrasing your question.';
+            } else if (err.message.includes('No response')) {
+                errorMessage = '😔 Sorry, I couldn\'t process your request. Please try again later.';
+            } else if (err.message.includes('Invalid')) {
+                errorMessage = '⚠️ There was an issue with your request. Please try with a different question.';
+            } else {
+                errorMessage = '😔 Sorry, I\'m unable to respond right now due to some issues. Please try again later!';
+            }
+            
+            this.addMessage(errorMessage, 'ai');
+            console.error('Error details:', err.message);
         } finally {
             this.setProcessingState(false);
         }
@@ -118,37 +145,148 @@ class PremiumChatbot {
     }
 
     async callGeminiAPI(prompt) {
-        const body = {
-            contents: [{ role: 'user', parts: [{ text: prompt }] }],
-            generationConfig: { temperature: 0.7, topK: 40, topP: 0.95, maxOutputTokens: 1200 }
-        };
+        try {
+            this.apiCallCount++;
 
-        const resp = await fetch(`${this.baseURL}?key=${this.apiKey}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
+            if (!prompt || prompt.trim().length === 0) {
+                throw new Error('Message cannot be empty');
+            }
 
-        const data = await resp.json();
+            console.log('');
+            console.log('═══════════════════════════════════════════════════════');
+            console.log('📤 API Call #' + this.apiCallCount);
+            console.log('📝 Message: ' + prompt.substring(0, 50) + (prompt.length > 50 ? '...' : ''));
+            console.log('═══════════════════════════════════════════════════════');
 
-        if (!resp.ok || data.error) {
-            throw new Error(data.error?.message || 'API Error');
+            // Build contents array
+            const contents = [];
+
+            // Add system prompt only on first message
+            if (this.conversationHistory.length === 0) {
+                contents.push({
+                    role: 'user',
+                    parts: [{ text: 'You are a helpful study assistant for GITA Autonomous College. Help students with their academics in a friendly manner.' }]
+                });
+                contents.push({
+                    role: 'model',
+                    parts: [{ text: 'I\'m your study assistant! I\'m here to help you understand concepts, solve problems, and excel in your studies. What can I help you with?' }]
+                });
+            }
+
+            // Add conversation history
+            for (const msg of this.conversationHistory) {
+                contents.push({
+                    role: msg.role,
+                    parts: [{ text: msg.text }]
+                });
+            }
+
+            // Add current message
+            contents.push({
+                role: 'user',
+                parts: [{ text: prompt }]
+            });
+
+            console.log('📊 History: ' + this.conversationHistory.length + ' messages');
+            console.log('📋 Sending: ' + contents.length + ' total messages');
+
+            // Prepare request
+            const requestBody = {
+                contents: contents,
+                generationConfig: {
+                    temperature: 0.9,
+                    topK: 40,
+                    topP: 0.95,
+                    maxOutputTokens: 2048
+                },
+                safetySettings: [
+                    { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_NONE' },
+                    { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_NONE' },
+                    { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_NONE' },
+                    { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' }
+                ]
+            };
+
+            console.log('🔄 Calling Gemini API...');
+            const startTime = Date.now();
+
+            const response = await fetch(`${this.baseURL}?key=${this.apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestBody)
+            });
+
+            const duration = Date.now() - startTime;
+            console.log('⏱️ Response in ' + duration + 'ms');
+            console.log('📥 Status: ' + response.status);
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                const error = data.error || {};
+                const msg = error.message || 'Unknown error';
+                console.error('❌ API Error:', msg);
+                
+                if (msg.includes('overloaded') || response.status === 429) {
+                    throw new Error('API is overloaded. Please try again later.');
+                } else if (msg.includes('API key') || msg.includes('authentication') || response.status === 401) {
+                    throw new Error('API authentication issue. Please try again.');
+                } else if (response.status === 403) {
+                    throw new Error('Permission denied. Please try again.');
+                } else if (response.status >= 500) {
+                    throw new Error('Server error. Please try again later.');
+                } else {
+                    throw new Error('API error: ' + msg);
+                }
+            }
+
+            if (data.error) {
+                const msg = data.error.message || 'Unknown error';
+                console.error('❌ Error:', msg);
+                
+                if (msg.includes('overloaded')) {
+                    throw new Error('API is overloaded. Please try again later.');
+                } else if (msg.includes('API key') || msg.includes('authentication')) {
+                    throw new Error('API authentication issue. Please try again.');
+                } else {
+                    throw new Error('API error: ' + msg);
+                }
+            }
+
+            // Extract response
+            if (!data.candidates || !data.candidates[0]) {
+                throw new Error('No response from API');
+            }
+
+            const candidate = data.candidates[0];
+            if (!candidate.content || !candidate.content.parts || !candidate.content.parts[0]) {
+                throw new Error('Invalid API response structure');
+            }
+
+            const responseText = candidate.content.parts[0].text;
+            if (!responseText || responseText.trim().length === 0) {
+                throw new Error('Empty response from API');
+            }
+
+            console.log('✅ Got response: ' + responseText.length + ' characters');
+            console.log('═══════════════════════════════════════════════════════');
+
+            // Save to history with correct role names
+            this.conversationHistory.push({ role: 'user', text: prompt });
+            this.conversationHistory.push({ role: 'model', text: responseText });
+
+            // Trim history
+            if (this.conversationHistory.length > this.maxHistory * 2) {
+                this.conversationHistory = this.conversationHistory.slice(-this.maxHistory * 2);
+            }
+
+            return responseText;
+
+        } catch (error) {
+            console.error('🔴 ERROR:', error.message);
+            console.error('═══════════════════════════════════════════════════════');
+            throw error;
         }
-
-        if (!data.candidates || !data.candidates[0]) {
-            throw new Error('No response from API');
-        }
-
-        const text = data.candidates[0]?.content?.parts?.[0]?.text || '';
-        if (!text) throw new Error('Empty response');
-
-        this.conversationHistory.push({ role: 'user', text: prompt });
-        this.conversationHistory.push({ role: 'assistant', text: text });
-        if (this.conversationHistory.length > this.maxHistory * 2) {
-            this.conversationHistory = this.conversationHistory.slice(-this.maxHistory * 2);
-        }
-
-        return text;
     }
 
     addMessage(text, sender) {
@@ -163,7 +301,7 @@ class PremiumChatbot {
 
         const bubble = document.createElement('div');
         bubble.className = 'message-bubble';
-        bubble.innerHTML = this.formatText(text);
+        bubble.innerHTML = '';
 
         const time = document.createElement('div');
         time.className = 'message-time';
@@ -178,6 +316,62 @@ class PremiumChatbot {
 
         this.elements.messages.appendChild(msg);
         this.scrollToBottom();
+
+        // If it's an AI message, use typewriter animation
+        if (sender === 'ai') {
+            this.typewriterEffect(bubble, text);
+        } else {
+            // For user messages, display immediately
+            bubble.innerHTML = this.formatText(text);
+        }
+    }
+
+    typewriterEffect(bubble, text) {
+        const formattedText = this.formatText(text);
+        const div = document.createElement('div');
+        div.innerHTML = formattedText;
+        const plainText = div.innerText;
+
+        let index = 0;
+        let displayHtml = '';
+
+        const typeChar = () => {
+            if (index < plainText.length) {
+                const char = plainText[index];
+                
+                if (char === '\n') {
+                    displayHtml += '<br>';
+                } else if (char === ' ') {
+                    displayHtml += '&nbsp;';
+                } else if (char === '<') {
+                    displayHtml += '&lt;';
+                } else if (char === '>') {
+                    displayHtml += '&gt;';
+                } else if (char === '&') {
+                    displayHtml += '&amp;';
+                } else {
+                    displayHtml += char;
+                }
+
+                bubble.innerHTML = displayHtml + '<span class="typing-cursor"></span>';
+                this.scrollToBottom();
+                
+                index++;
+                
+                // Vary the speed slightly for more natural effect
+                const delay = Math.random() > 0.9 ? 50 : 20;
+                setTimeout(typeChar, delay);
+            } else {
+                // Remove cursor when done
+                bubble.innerHTML = displayHtml;
+                this.scrollToBottom();
+            }
+        };
+
+        // Apply formatting after typing completes
+        setTimeout(() => {
+            typeChar();
+        }, 100);
     }
 
     formatText(s) {
